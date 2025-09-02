@@ -1,0 +1,84 @@
+# -*- coding: utf-8 -*-
+import numpy as np
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+import pickle
+import streamlit as st
+
+# -----------------------------
+# Step 1: Prepare dataset
+# -----------------------------
+data = {
+    "essay_text": [
+        "The cat sat on the mat.",
+        "Climate change is a global issue.",
+        "I love programming in Python.",
+        "Artificial Intelligence will change the world.",
+        "Education is key to success."
+    ],
+    "score": [2, 4, 5, 5, 3]  # Example scores
+}
+
+df = pd.DataFrame(data)
+
+# -----------------------------
+# Step 2: TF-IDF vectorization
+# -----------------------------
+tfidf = TfidfVectorizer(max_features=5000)
+X_tfidf = tfidf.fit_transform(df['essay_text'])
+
+# -----------------------------
+# Step 3: Encode target labels
+# -----------------------------
+le = LabelEncoder()
+y = le.fit_transform(df['score'])
+
+# -----------------------------
+# Step 4: Train-test split
+# -----------------------------
+X_train, X_test, y_train, y_test = train_test_split(
+    X_tfidf, y, test_size=0.2, random_state=42
+)
+
+# -----------------------------
+# Step 5: Train model
+# -----------------------------
+model = LogisticRegression(max_iter=500)
+model.fit(X_train, y_train)
+
+# -----------------------------
+# Step 6: Evaluate
+# -----------------------------
+y_pred = model.predict(X_test)
+print("Classification Report:\n", classification_report(y_test, y_pred))
+
+# -----------------------------
+# Step 7: Save model and preprocessors
+# -----------------------------
+with open("best_model.pkl", "wb") as f:
+    pickle.dump(model, f)
+
+with open("tfidf_vectorizer.pkl", "wb") as f:
+    pickle.dump(tfidf, f)
+
+with open("label_encoder.pkl", "wb") as f:
+    pickle.dump(le, f)
+
+# -----------------------------
+# Step 8: Streamlit app
+# -----------------------------
+st.title("Automated Essay Scoring")
+input_text = st.text_area("Enter your essay here:")
+
+if st.button("Predict Score"):
+    if input_text.strip() == "":
+        st.warning("Please enter some text to predict.")
+    else:
+        features = tfidf.transform([input_text])
+        prediction = model.predict(features)
+        prediction = le.inverse_transform(prediction)
+        st.success(f"Predicted Score: {prediction[0]}")
