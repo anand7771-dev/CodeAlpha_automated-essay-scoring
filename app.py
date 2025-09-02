@@ -3,8 +3,10 @@ import pickle
 import numpy as np
 
 # Load saved model and scaler
-model = pickle.load(open("model.pkl", "rb"))
-scaler = pickle.load(open("scaler.pkl", "rb"))
+model = pickle.load(open("best_model.pkl", "rb"))
+scaler = pickle.load(open("tfidf_vectorizer.pkl", "rb"))  # assuming you used this for TF-IDF
+le = pickle.load(open("label_encoder.pkl", "rb"))  # optional if using label encoding
+
 
 st.title("Automated Essay Scoring")
 
