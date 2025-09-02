@@ -1,19 +1,10 @@
 import streamlit as st
 import pickle
-import numpy as np
 
-<<<<<<< HEAD
 # Load your saved model and vectorizer
 model = pickle.load(open("best_model.pkl", "rb"))
 tfidf = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
-le = pickle.load(open("label_encoder.pkl", "rb"))
-=======
-# Load saved model and scaler
-model = pickle.load(open("best_model.pkl", "rb"))
-scaler = pickle.load(open("tfidf_vectorizer.pkl", "rb"))  # assuming you used this for TF-IDF
-le = pickle.load(open("label_encoder.pkl", "rb"))  # optional if using label encoding
-
->>>>>>> 7c2d118c35c522e7b69ad1a29c00a9c481ebee1e
+le = pickle.load(open("label_encoder.pkl", "rb"))  # optional
 
 st.title("Automated Essay Scoring")
 
@@ -31,3 +22,4 @@ if st.button("Predict Score"):
         prediction = le.inverse_transform(prediction)
     
     st.write("Predicted Score:", prediction[0])
+
