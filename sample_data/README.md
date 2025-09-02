@@ -1,19 +1,36 @@
-This directory includes a few sample datasets to get you started.
+Automated Essay Scoring (AES) System
+Overview
 
-*   `california_housing_data*.csv` is California housing data from the 1990 US
-    Census; more information is available at:
-    https://docs.google.com/document/d/e/2PACX-1vRhYtsvc5eOR2FWNCwaBiKL6suIOrxJig8LcSBbmCbyYsayia_DvPOOBlXZ4CAlQ5nlDD8kTaIDRwrN/pub
+The Automated Essay Scoring (AES) System is a machine learning-based application that predicts scores for essays. This project leverages TF-IDF text features and Logistic Regression to evaluate essay quality and assign a score. The system also includes a Streamlit web interface for easy user interaction.
 
-*   `mnist_*.csv` is a small sample of the
-    [MNIST database](https://en.wikipedia.org/wiki/MNIST_database), which is
-    described at: http://yann.lecun.com/exdb/mnist/
+Features
 
-*   `anscombe.json` contains a copy of
-    [Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet); it
-    was originally described in
+Predict essay scores based on textual content.
 
-    Anscombe, F. J. (1973). 'Graphs in Statistical Analysis'. American
-    Statistician. 27 (1): 17-21. JSTOR 2682899.
+Interactive web interface using Streamlit.
 
-    and our copy was prepared by the
-    [vega_datasets library](https://github.com/altair-viz/vega_datasets/blob/4f67bdaad10f45e3549984e17e1b3088c731503d/vega_datasets/_data/anscombe.json).
+TF-IDF vectorization of essay text.
+
+Preprocessing and label encoding for scores.
+
+Model and preprocessing objects are saved for reuse (best_model.pkl, tfidf_vectorizer.pkl, label_encoder.pkl).
+
+Requirements
+
+Python 3.8+
+
+Libraries:
+
+numpy
+
+pandas
+
+scikit-learn
+
+streamlit
+
+pickle (standard library)
+
+License
+
+This project is open-source and free to use for educational purposes.
