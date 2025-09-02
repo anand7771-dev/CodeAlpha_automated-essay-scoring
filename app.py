@@ -2,9 +2,9 @@ import streamlit as st
 import pickle
 
 # Load your saved model and vectorizer
-model = pickle.load(open("best_model.pkl", "rb"))
-tfidf = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
-le = pickle.load(open("label_encoder.pkl", "rb"))  # optional
+model = pickle.load(open("models/best_model.pkl", "rb"))
+tfidf = pickle.load(open("models/tfidf_vectorizer.pkl", "rb"))
+le = pickle.load(open("models/label_encoder.pkl", "rb"))
 
 st.title("Automated Essay Scoring")
 
